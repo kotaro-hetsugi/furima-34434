@@ -2,16 +2,16 @@
 
 ## users テーブル
 
-| Column          | Type   | Options     |
-| --------------- | ------ | ----------- |
-| email           | string | null: false |
-| password        | string | null: false |
-| nick_name       | string | null: false |
-| last_name       | string | null: false |
-| first_name      | string | null: false |
-| last_name_kana  | string | null: false |
-| first_name_kana | string | null: false |
-| birthday        | date   | null: false |
+| Column             | Type   | Options                   |
+| ------------------ | ------ | ------------------------- |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| nick_name          | string | null: false               |
+| last_name          | string | null: false               |
+| first_name         | string | null: false               |
+| last_name_kana     | string | null: false               |
+| first_name_kana    | string | null: false               |
+| birthday           | date   | null: false               |
 
 ### Association
 
@@ -20,44 +20,50 @@
 
 ## products テーブル
 
-| Column               | Type       | Options     |
-| -------------------- | ---------- | ----------- |
-| image                |            |             | <!-- ActiveStorageで実装  -->
-| title                | string     | null: false | 
-| text                 | text       | null: false |
-| category             | string     | null: false |
-| status               | string     | null: false |
-| delivery_fee_role    | boolean    | null: false |
-| delivery_source_area | string     | null: false |
-| delivery_days        | integer    | null: false |
-| price                | integer    | null: false |
-| stock                | boolean    | null: false |
-| user                 | references |             |
-| buyer                | references |             |
+| Column                  | Type       | Options           |
+| ----------------------- | ---------- | ----------------- |
+| title                   | string     | null: false       |
+| text                    | text       | null: false       |
+| category_id             | integer    | null: false       |
+| status_id               | integer    | null: false       |
+| delivery_fee_role_id    | integer    | null: false       |
+| delivery_source_area_id | integer    | null: false       |
+| delivery_days_id        | integer    | null: false       |
+| price                   | integer    | null: false       |
+| user                    | references | foreign_key: true |
+| buyer                   | references | foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- has_one :buyer
+- has_one :buy
 
-## buyers テーブル
+## buys テーブル
 
-| Column          | Type       | Options     |
-| --------------- | ---------- | ----------- |
-| card_number     | integer    | null: false |
-| card_date_month | integer    | null: false |
-| card_date_year  | integer    | null: false |
-| card_code       | integer    | null: false |
-| postal_code     | string     | null: false |
-| prefectures     | string     | null: false |
-| municipality    | string     | null: false |
-| address         | string     | null: false |
-| building_name   | string     |             |
-| phone_number    | integer    | null: false |
-| user            | references |             |
-| product         | references |             |
+| Column          | Type       | Options           |
+| --------------- | ---------- | ----------------- |
+| user            | references | foreign_key: true |
+| product         | references | foreign_key: true |
+| buyer           | references | foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - belongs_to :product
+- has_one :buyer
+
+## buyers テーブル
+
+| Column          | Type       | Options           |
+| --------------- | ---------- | ----------------- |
+| postal_code     | string     | null: false       |
+| prefectures_id  | integer    | null: false       |
+| municipality    | string     | null: false       |
+| address         | string     | null: false       |
+| building_name   | string     |                   |
+| phone_number    | string     | null: false       |
+| buy             | references | foreign_key: true |
+
+### Association
+
+- belongs_to :buy
