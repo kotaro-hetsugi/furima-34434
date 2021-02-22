@@ -33,11 +33,12 @@
 | price                | integer    | null: false |
 | stock                | boolean    | null: false |
 | user                 | references |             |
+| buyer                | references |             |
 
 ### Association
 
 - belongs_to :user
-- belongs_to :buyer
+- has_one :buyer
 
 ## buyers テーブル
 
@@ -59,4 +60,4 @@
 ### Association
 
 - belongs_to :user
-- belongs_to :product
+- has_one :product
