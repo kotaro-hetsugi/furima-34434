@@ -31,7 +31,6 @@
 | delivery_days_id        | integer    | null: false       |
 | price                   | integer    | null: false       |
 | user                    | references | foreign_key: true |
-| buyer                   | references | foreign_key: true |
 
 ### Association
 
@@ -44,7 +43,6 @@
 | --------------- | ---------- | ----------------- |
 | user            | references | foreign_key: true |
 | product         | references | foreign_key: true |
-| buyer           | references | foreign_key: true |
 
 ### Association
 
