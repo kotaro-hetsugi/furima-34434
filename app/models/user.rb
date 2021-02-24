@@ -10,12 +10,14 @@ class User < ApplicationRecord
     validates :birthday
   end
 
-  with_options presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/, message: 'Full-width characters' } do
+  NAME_REGEX = /\A[ぁ-んァ-ヶ一-龥々]+\z/.freeze
+  with_options presence: true, format: { with: NAME_REGEX, message: 'Full-width characters' } do
     validates :last_name
     validates :first_name
   end
 
-  with_options presence: true, format: { with: /\A[ァ-ヶ]+\z/, message: 'Full-width katakana characters' } do
+  NAMEKANA_REGEX = /\A[ァ-ヶ]+\z/.freeze
+  with_options presence: true, format: { with: NAMEKANA_REGEX, message: 'Full-width katakana characters' } do
     validates :last_name_kana
     validates :first_name_kana
   end
