@@ -15,7 +15,7 @@ class Product < ApplicationRecord
   validates :delivery_fee_role_id,    numericality: { other_than: 1 }
   validates :delivery_source_area_id, numericality: { other_than: 1 }
   validates :delivery_days_id,        numericality: { other_than: 1 }
-  validates :price, numericality: { only_integer: true, message:'Half-width number' }, inclusion: {in: 300..999999999 , message:'Out of setting range'} 
+  validates :price, numericality: { only_integer: true, message:'Half-width number' }, inclusion: {in: 300..9999999 , message:'Out of setting range'} 
 
   belongs_to :user
   has_one :buy
