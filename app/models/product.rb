@@ -6,14 +6,20 @@ class Product < ApplicationRecord
   belongs_to :delivery_source_area
   belongs_to :delivery_days
 
-  validates :image,                   presence: true
-  validates :title,                   presence: true
-  validates :text,                    presence: true
-  validates :category_id,             numericality: { other_than: 1 }
-  validates :status_id,               numericality: { other_than: 1 }
-  validates :delivery_fee_role_id,    numericality: { other_than: 1 }
-  validates :delivery_source_area_id, numericality: { other_than: 1 }
-  validates :delivery_days_id,        numericality: { other_than: 1 }
+  with_options presence: true do
+  validates :image
+  validates :title
+  validates :text
+  end
+  
+  with_options numericality: { other_than: 1 } do
+    validates :category_id
+    validates :status_id
+    validates :delivery_fee_role_id
+    validates :delivery_source_area_id
+    validates :delivery_days_id
+  end
+
   validates :price, numericality: { only_integer: true, message: 'Half-width number' },
                     inclusion: { in: 300..9_999_999, message: 'Out of setting range' }
 
