@@ -24,11 +24,17 @@ class ProductsController < ApplicationController
   end
 
   def edit
-
+    @product = Product.find(params[:id])
   end
 
   def update
-
+    product = Product.new(product_params)
+    if product.save
+      redirect_to product_path(product.id)
+    else
+      product = Product.create(product_params)
+      render :edit
+    end
   end
 
   private
