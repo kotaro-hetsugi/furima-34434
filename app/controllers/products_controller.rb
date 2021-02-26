@@ -14,7 +14,7 @@ class ProductsController < ApplicationController
     if product.save
       redirect_to root_path
     else
-      @product = Product.new(product_params)
+      @product = Product.create(product_params)
       render :new
     end
   end
