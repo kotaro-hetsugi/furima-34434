@@ -7,11 +7,11 @@ class Product < ApplicationRecord
   belongs_to :delivery_days
 
   with_options presence: true do
-  validates :image
-  validates :title
-  validates :text
+    validates :image
+    validates :title
+    validates :text
   end
-  
+
   with_options numericality: { other_than: 1 } do
     validates :category_id
     validates :status_id
