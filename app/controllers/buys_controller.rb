@@ -1,23 +1,26 @@
 class BuysController < ApplicationController
   def index
     @product = Product.find(params[:product_id])
-    @buy = Buy.new
+    #@buy = Buy.new
+    @buy_buyer = BuyBuyer.new
   end
 
   def create
-    @buy = Buy.create(buy_params)
-    Buyer.create(buyer_params)
-    redirect_to root_path
+    @buy_buyer = BuyBuyer.new(buy_params)
+    @product = Product.find(params[:product_id])
+    if @buy_buyer.valid?
+      @buy_buyer.save
+      redirect_to root_path
+    else
+      render :index
+    end
   end
 
 
   private
 
   def buy_params
-    params.merge(user_id: current_user.id)
+    params.require(:buy_buyer).permit(:postal_code, :prefectures_id, :municipality,  :address, :building_name, :phone_number).merge(user_id: current_user.id, product_id: params[:product_id])
   end
 
-  def buyer_params
-    params.permit(:postal_code, :delivery_source_area_id, :municipality,  :address, :building_name, :phone_number).merge(buy_id: @buy.id)
-  end
 end
