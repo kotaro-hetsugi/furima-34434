@@ -11,6 +11,7 @@ class BuysController < ApplicationController
     @buy_buyer = BuyBuyer.new(buy_params)
     @product = Product.find(params[:product_id])
     if @buy_buyer.valid?
+      pay_item
       @buy_buyer.save
       redirect_to root_path
     else
@@ -30,6 +31,15 @@ class BuysController < ApplicationController
     unless product.user_id != current_user.id
       redirect_to root_path
     end
+  end
+
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # PAY.JPテスト秘密鍵
+    Payjp::Charge.create(
+      amount: @product.price,   # 商品の値段
+      card: buy_params[:token], # カードトークン
+      currency: 'jpy'           # 通貨の種類（日本円）
+    )
   end
 
 end

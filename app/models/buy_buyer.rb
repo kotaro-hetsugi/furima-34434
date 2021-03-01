@@ -2,6 +2,8 @@ class BuyBuyer
   include ActiveModel::Model
   attr_accessor :postal_code, :prefectures_id, :municipality, :address, :building_name, :phone_number, :user_id, :product_id, :buy_id ,:token
 
+  validates :token, presence: true
+
   POSTALCODE_REGEX = /\A\d{3}[-]\d{4}\z/.freeze  # 3桁 - 4桁の数字の組み合わせ
   validates :postal_code, presence: true,format: { with: POSTALCODE_REGEX, message: 'Input correctly'}
 
