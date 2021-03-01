@@ -29,9 +29,7 @@ class BuysController < ApplicationController
 
   def move_to_index
     product = Product.find(params[:product_id])
-    if product.user_id == current_user.id || product.buy != nil
-      redirect_to root_path 
-    end
+    redirect_to root_path if product.user_id == current_user.id || !product.buy.nil?
   end
 
   def pay_item
