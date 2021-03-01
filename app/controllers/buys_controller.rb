@@ -19,27 +19,25 @@ class BuysController < ApplicationController
     end
   end
 
-
   private
 
   def buy_params
-    params.require(:buy_buyer).permit(:postal_code, :prefectures_id, :municipality,  :address, :building_name, :phone_number).merge(user_id: current_user.id, product_id: params[:product_id], token: params[:token])
+    params.require(:buy_buyer).permit(:postal_code, :prefectures_id, :municipality, :address, :building_name, :phone_number).merge(
+      user_id: current_user.id, product_id: params[:product_id], token: params[:token]
+    )
   end
 
   def move_to_index
     product = Product.find(params[:product_id])
-    unless product.user_id != current_user.id
-      redirect_to root_path
-    end
+    redirect_to root_path unless product.user_id != current_user.id
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # PAY.JPテスト秘密鍵
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']  # PAY.JPテスト秘密鍵
     Payjp::Charge.create(
       amount: @product.price,   # 商品の値段
       card: buy_params[:token], # カードトークン
       currency: 'jpy'           # 通貨の種類（日本円）
     )
   end
-
 end

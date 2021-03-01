@@ -48,7 +48,7 @@ class ProductsController < ApplicationController
   end
 
   def move_to_index
-    redirect_to root_path unless @product.user_id == current_user.id && @product.buy == nil
+    redirect_to root_path unless @product.user_id == current_user.id && @product.buy.nil?
   end
 
   def set_product
