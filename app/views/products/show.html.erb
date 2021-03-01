@@ -23,13 +23,13 @@
       </span>
     </div>
 
-    <% if user_signed_in? && @product.user_id == current_user.id %>
+    <% if @product.buy != nil  %>
+    <% elsif user_signed_in? && @product.user_id == current_user.id%>
     <%= link_to "商品の編集", edit_product_path(@product.id), method: :get, class: "item-red-btn" %>
     <p class="or-text">or</p>
     <%= link_to "削除", product_path(@product.id), method: :delete, class:"item-destroy" %>
-    <% elsif user_signed_in? && @product.buy == nil %>
-    <%= link_to "購入画面に進む", product_buys_path(@product.id) ,class:"item-red-btn"%>
     <% else %>
+    <%= link_to "購入画面に進む", product_buys_path(@product.id) ,class:"item-red-btn"%>
     <% end %>
 
     <div class="item-explain-box">
