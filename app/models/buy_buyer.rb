@@ -2,14 +2,18 @@ class BuyBuyer
   include ActiveModel::Model
   attr_accessor :postal_code, :prefectures_id, :municipality, :address, :building_name, :phone_number, :user_id, :product_id, :buy_id
 
+  POSTALCODE_REGEX = /\A\d{3}[-]\d{4}\z/.freeze  # 3桁 - 4桁の数字の組み合わせ
+  validates :postal_code, presence: true,format: { with: POSTALCODE_REGEX, message: 'Input correctly'}
+
   with_options presence: true do
-    validates :postal_code
     validates :municipality
     validates :address
   end
 
-  validates :prefectures_id, numericality: { other_than: 1 }
-  validates :phone_number, numericality: { only_integer: true, message: 'Input only number' }
+  validates :prefectures_id, numericality: { other_than: 1 , message: 'Select'}
+
+  PHONENUMBER_REGEX = /\A\d{11}\z/.freeze  # 11桁以内の数字
+  validates :phone_number, presence: true, format: { with: PHONENUMBER_REGEX, message: 'Input only number'}
 
   def save
     buy = Buy.create(user_id: user_id, product_id: product_id)  # 購入情報を保存し、変数buyに代入する
