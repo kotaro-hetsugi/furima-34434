@@ -22,7 +22,7 @@ class BuysController < ApplicationController
   private
 
   def buy_params
-    params.require(:buy_buyer).permit(:postal_code, :prefectures_id, :municipality,  :address, :building_name, :phone_number).merge(user_id: current_user.id, product_id: params[:product_id])
+    params.require(:buy_buyer).permit(:postal_code, :prefectures_id, :municipality,  :address, :building_name, :phone_number).merge(user_id: current_user.id, product_id: params[:product_id], token: params[:token])
   end
 
   def move_to_index
