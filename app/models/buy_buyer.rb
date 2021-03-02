@@ -3,19 +3,19 @@ class BuyBuyer
   attr_accessor :postal_code, :prefectures_id, :municipality, :address, :building_name, :phone_number, :user_id, :product_id,
                 :token
 
-  validates :token, presence: true
-
   POSTALCODE_REGEX = /\A\d{3}-\d{4}\z/.freeze  # 3桁 - 4桁の数字の組み合わせ
   validates :postal_code, presence: true, format: { with: POSTALCODE_REGEX, message: 'Input correctly' }
 
   with_options presence: true do
+    validates :token
+    validates :prefectures_id, numericality: { other_than: 1, message: 'Select' }
     validates :municipality
     validates :address
     validates :user_id
     validates :product_id
   end
 
-  validates :prefectures_id, numericality: { other_than: 1, message: 'Select' }
+  
 
   PHONENUMBER_REGEX = /\A\d{11}\z/.freeze # 11桁以内の数字
   validates :phone_number, presence: true, format: { with: PHONENUMBER_REGEX, message: 'Input only number' }
