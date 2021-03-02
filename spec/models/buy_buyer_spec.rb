@@ -79,6 +79,11 @@ RSpec.describe BuyBuyer, type: :model do
         @buy_buyer.valid?
         expect(@buy_buyer.errors.full_messages).to include('Phone number Input only number')
       end
+      it 'phone_numberが12桁以上では購入できない' do
+        @buy_buyer.phone_number = '111222233334'
+        @buy_buyer.valid?
+        expect(@buy_buyer.errors.full_messages).to include('Phone number Input only number')
+      end
       it 'user_idがnilの場合、購入できない' do
         @buy_buyer.user_id = nil
         @buy_buyer.valid?
