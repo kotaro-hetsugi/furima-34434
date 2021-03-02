@@ -7,7 +7,7 @@ class BuysController < ApplicationController
   end
 
   def create
-    @product = Product.find(params[:product_id])
+    @buy_buyer = BuyBuyer.new(buy_params)
     if @buy_buyer.valid?
       pay_item
       @buy_buyer.save
