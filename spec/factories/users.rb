@@ -9,6 +9,5 @@ FactoryBot.define do
     last_name_kana        { Gimei.name.last.katakana }
     first_name_kana       { Gimei.name.first.katakana }
     birthday              { '2021/02/23' }
-    id                    { 1 }
   end
 end
