@@ -79,6 +79,16 @@ RSpec.describe BuyBuyer, type: :model do
         @buy_buyer.valid?
         expect(@buy_buyer.errors.full_messages).to include('Phone number Input only number')
       end
+      it 'user_idがnilの場合、購入できない' do
+        @buy_buyer.user_id = nil
+        @buy_buyer.valid?
+        expect(@buy_buyer.errors.full_messages).to include("User can't be blank")
+      end
+      it 'product_idがnilの場合、購入できない' do
+        @buy_buyer.product_id = nil
+        @buy_buyer.valid?
+        expect(@buy_buyer.errors.full_messages).to include("Product can't be blank")
+      end
     end
   end
 end
