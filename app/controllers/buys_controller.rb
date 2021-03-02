@@ -3,12 +3,10 @@ class BuysController < ApplicationController
   before_action :move_to_index, only: [:index, :create]
 
   def index
-    @product = Product.find(params[:product_id])
     @buy_buyer = BuyBuyer.new
   end
 
   def create
-    @buy_buyer = BuyBuyer.new(buy_params)
     @product = Product.find(params[:product_id])
     if @buy_buyer.valid?
       pay_item
@@ -28,8 +26,8 @@ class BuysController < ApplicationController
   end
 
   def move_to_index
-    product = Product.find(params[:product_id])
-    redirect_to root_path if product.user_id == current_user.id || !product.buy.nil?
+    @product = Product.find(params[:product_id])
+    redirect_to root_path if @product.user_id == current_user.id || !@product.buy.nil?
   end
 
   def pay_item
