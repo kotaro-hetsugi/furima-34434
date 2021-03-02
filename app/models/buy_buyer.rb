@@ -11,6 +11,8 @@ class BuyBuyer
   with_options presence: true do
     validates :municipality
     validates :address
+    validates :user_id
+    validates :product_id
   end
 
   validates :prefectures_id, numericality: { other_than: 1, message: 'Select' }
