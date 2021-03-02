@@ -6,6 +6,6 @@ FactoryBot.define do
     municipality   { '札幌市' }
     address        { '1234' }
     building_name  { 'テストビル' }
-    phone_number { 11_122_223_333 }
+    phone_number { '11122223333' }
   end
 end
