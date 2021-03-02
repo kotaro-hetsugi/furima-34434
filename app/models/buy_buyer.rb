@@ -1,7 +1,7 @@
 class BuyBuyer
   include ActiveModel::Model
   attr_accessor :postal_code, :prefectures_id, :municipality, :address, :building_name, :phone_number, :user_id, :product_id,
-                :buy_id, :token
+                :token
 
   validates :token, presence: true
 
