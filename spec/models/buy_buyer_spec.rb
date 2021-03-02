@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe BuyBuyer, type: :model do
   before do
-    @buy_buyer = FactoryBot.build(:buy_buyer)
+    user = FactoryBot.build(:user)
+    product = FactoryBot.build(:product)
+    @buy_buyer = FactoryBot.build(:buy_buyer, user_id: user.id, product_id: product.id)
   end
 
   describe '商品購入機能' do
